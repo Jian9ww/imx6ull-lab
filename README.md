@@ -13,7 +13,7 @@ Host + VSCode/Codex + Docker + Git + i.MX6ULL 开发板
 - i.MX6ULL 开发板负责真实运行和验证。
 - Codex 辅助生成骨架、review、debug 和整理文档。
 
-当前第一阶段只做环境和目录规范，不开始写教程实验代码。
+当前第二阶段开始配置 Docker 内置 Linaro 4.9.4 交叉编译工具链，但仍不开始写教程实验代码。
 
 后续会逐章在 `chapters/` 下创建 `chXX_xxx` 目录。
 
@@ -35,7 +35,7 @@ Host + VSCode/Codex + Docker + Git + i.MX6ULL 开发板
 
 Docker 基础镜像暂定为 `ubuntu:16.04`，因为教程开发环境是 Ubuntu 16.04。
 
-当前 `docker/Dockerfile` 只是基础环境骨架，还不具备交叉编译能力。后续会单独配置教程使用的 Linaro 4.9.4 工具链。
+当前 `docker/Dockerfile` 会从 `docker/assets/` 复制教程使用的 Linaro 4.9.4 工具链压缩包并内置到镜像中。工具链压缩包不提交 Git。
 
 ## Recommended Daily Flow
 

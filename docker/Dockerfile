@@ -47,17 +47,27 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # This avoids accidentally mixing system cross compilers with the tutorial's
 # Linaro 4.9.4 toolchain.
 #
-# Do not COPY tutorial documents, kernel source, rootfs, images, SDK archives,
-# or toolchain archives into this image at this stage.
+# Do not COPY tutorial documents, kernel source, rootfs, images, or SDK
+# archives into this image.
 #
-# Phase 2 plan:
-# Install the tutorial toolchain into:
-# /opt/toolchains/gcc-linaro-4.9.4-2017.01-x86_64_arm-linux-gnueabihf
-#
-# Later environment variables:
-# - TOOLCHAIN_ROOT
-# - PATH
-# - ARCH=arm
-# - CROSS_COMPILE=arm-linux-gnueabihf-
+# Phase 2 installs the tutorial's Linaro 4.9.4 cross toolchain from the local
+# archive placed under docker/assets/. The archive is intentionally ignored by
+# Git and must be provided manually before building the image.
+
+COPY docker/assets/gcc-linaro-4.9.4-2017.01-x86_64_arm-linux-gnueabihf.tar.xz /tmp/gcc-linaro-4.9.4.tar.xz
+
+RUN mkdir -p /opt/toolchains \
+    && tar -xJf /tmp/gcc-linaro-4.9.4.tar.xz -C /opt/toolchains \
+    && test -d /opt/toolchains/gcc-linaro-4.9.4-2017.01-x86_64_arm-linux-gnueabihf \
+    && rm -f /tmp/gcc-linaro-4.9.4.tar.xz
+
+ENV TOOLCHAIN_ROOT=/opt/toolchains/gcc-linaro-4.9.4-2017.01-x86_64_arm-linux-gnueabihf
+ENV ARCH=arm
+ENV CROSS_COMPILE=arm-linux-gnueabihf-
+ENV PATH=${TOOLCHAIN_ROOT}/bin:${PATH}
 
 WORKDIR /work
+
+RUN which arm-linux-gnueabihf-gcc \
+    && arm-linux-gnueabihf-gcc -dumpmachine \
+    && arm-linux-gnueabihf-gcc -dumpversion
