@@ -16,6 +16,7 @@
 build/
 build-*/
 .tmp_versions/
+chapters/00_environment/01_hello_cross_compile/hello_imx6ull
 
 # Editors
 .vscode/
