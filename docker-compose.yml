@@ -1,6 +1,6 @@
 services:
   dev:
-    image: imx6ull-dev:base
+    image: ghcr.io/jian9ww/imx6ull-dev:linaro-4.9.4
     build:
       context: .
       dockerfile: docker/Dockerfile

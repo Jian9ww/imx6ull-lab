@@ -37,6 +37,52 @@ Docker 基础镜像暂定为 `ubuntu:16.04`，因为教程开发环境是 Ubuntu
 
 当前 `docker/Dockerfile` 会从 `docker/assets/` 复制教程使用的 Linaro 4.9.4 工具链压缩包并内置到镜像中。工具链压缩包不提交 Git。
 
+`docker-compose.yml` 当前使用的镜像名是：
+
+```text
+ghcr.io/jian9ww/imx6ull-dev:linaro-4.9.4
+```
+
+本机已构建并验证过的本地镜像原名是：
+
+```text
+imx6ull-dev:base
+```
+
+## Docker Image Migration
+
+推送到 GitHub Container Registry 前，先给本地镜像打 tag：
+
+```bash
+docker tag imx6ull-dev:base ghcr.io/jian9ww/imx6ull-dev:linaro-4.9.4
+```
+
+登录 GHCR：
+
+```bash
+echo "<GITHUB_PAT>" | docker login ghcr.io -u Jian9ww --password-stdin
+```
+
+不要把 GitHub token 写入任何文件，也不要提交到 Git。
+
+推送镜像：
+
+```bash
+docker push ghcr.io/jian9ww/imx6ull-dev:linaro-4.9.4
+```
+
+新电脑迁移流程：
+
+```bash
+git clone https://github.com/Jian9ww/imx6ull-lab.git
+cd imx6ull-lab
+docker compose pull
+./scripts/devshell.sh
+./scripts/check_toolchain.sh
+```
+
+不要提交 `docker/assets/` 下的工具链压缩包。工具链应内置在 Docker 镜像里，通过 GHCR 分发。
+
 ## Recommended Daily Flow
 
 1. `git pull`
