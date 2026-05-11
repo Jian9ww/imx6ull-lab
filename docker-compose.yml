@@ -1,0 +1,15 @@
+services:
+  dev:
+    image: imx6ull-dev:base
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    volumes:
+      - .:/work
+      - ~/.ssh:/root/.ssh:ro
+    working_dir: /work
+    tty: true
+    stdin_open: true
+    # Phase 0 does not enable privileged mode, serial devices, USB flashing,
+    # NFS, TFTP, or host networking. Add those later only when a chapter needs
+    # them and document the reason in that chapter README.

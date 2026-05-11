@@ -1,0 +1,57 @@
+# Build outputs
+*.o
+*.ko
+*.mod
+*.mod.c
+*.symvers
+*.order
+*.cmd
+*.elf
+*.bin
+*.dis
+*.imx
+*.dtb
+*.img
+*.out
+build/
+build-*/
+.tmp_versions/
+
+# Editors
+.vscode/
+.idea/
+*.code-workspace
+
+# Secrets
+.env
+*.token
+*.secret
+gitToken.md
+scripts/board.env
+
+# Docker local assets
+docker/assets/*
+!docker/assets/README.md
+
+# Local large resources
+local/toolchains/*
+!local/toolchains/README.md
+local/kernel/*
+!local/kernel/README.md
+local/rootfs/*
+!local/rootfs/README.md
+local/images/*
+!local/images/README.md
+
+# Tutorial large files
+*.pdf
+*.docx
+*.zip
+*.tar
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.7z
+
+# Logs
+*.log
